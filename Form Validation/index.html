@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<title>Login or Register</title>
+	<style>
+		body {
+			min-height: 75rem;
+			padding-top: 4.5rem;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		function validateEmail(email) {
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
+		}
+		function register() {
+			var submit = true;
+			var username = $("#registerform").find("#username").val();
+			var email = $("#registerform").find("#email").val();
+			var password = $("#registerform").find("#password").val();
+			var checkbox = $("#registerform").find("#remember")[0].checked;
+			$("#registerform").find("#usernameerror").hide();
+			$("#registerform").find("#usernameerror1").hide();
+			$("#registerform").find("#passworderror").hide();
+			$("#registerform").find("#passworderror1").hide();
+			$("#registerform").find("#emailerror").hide();
+			$("#registerform").find("#emailerror1").hide();
+			$("#registerform").find("#remembererror").hide();
+			$("#registerform").find("#username").removeClass("is-invalid");
+			$("#registerform").find("#password").removeClass("is-invalid");
+			$("#registerform").find("#email").removeClass("is-invalid");
+			if (username == "") {
+				$("#registerform").find("#usernameerror").show();
+				$("#registerform").find("#username").addClass("is-invalid");
+				submit = false;
+			} else if (username.length < 4) {
+				$("#registerform").find("#usernameerror1").show();
+				$("#registerform").find("#username").addClass("is-invalid");
+				submit = false;
+			}
+			if (email == "") {
+				$("#registerform").find("#emailerror").show();
+				$("#registerform").find("#email").addClass("is-invalid");
+				submit = false;
+			} else if (!validateEmail(email)) {
+				$("#registerform").find("#emailerror1").show();
+				$("#registerform").find("#email").addClass("is-invalid");
+				submit = false;
+			}
+			if (password == "") {
+				$("#registerform").find("#passworderror").show();
+				$("#registerform").find("#email").addClass("is-invalid");
+				submit = false;
+			} else if (password.length < 6) {
+				$("#registerform").find("#passworderror1").show();
+				$("#registerform").find("#email").addClass("is-invalid");
+				submit = false;
+			}
+			if (checkbox == false) {
+				$("#registerform").find("#remembererror").show();
+				submit = false;
+			}
+			if (submit == true) {
+				$("#registerform").submit();
+			}
+		}
+		function login() {
+			var submit = true;
+			var username = $("#loginform").find("#username").val();
+			var password = $("#loginform").find("#password").val();
+			$("#loginform").find("#usernameerror").hide();
+			$("#loginform").find("#passworderror").hide();
+			$("#loginform").find("#username").removeClass("is-invalid");
+			$("#loginform").find("#password").removeClass("is-invalid");
+			if (username == "") {
+				$("#loginform").find("#usernameerror").show();
+				$("#loginform").find("#username").addClass("is-invalid");
+				submit = false;
+			}
+			if (password == "") {
+				$("#loginform").find("#passworderror").show();
+				$("#loginform").find("#password").addClass("is-invalid");
+				submit = false;
+			}
+			if (submit == true) {
+				$("#loginform").submit();
+			}
+		}
+	</script>
+	<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+		<i class="navbar-brand"><b>FormValidation</b></i>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Login or Register</a>
+				</li>
+			</ul>
+			<form class="form-inline mt-2 mt-md-0">
+				<input class="form-control mr-sm-2" type="text" placeholder="Type here..." aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" disabled>Search</button>
+			</form>
+		</div>
+	</nav>
+	<div class="container" id="forms">
+		<div class="card">
+			<div class="card-header">
+				<ul class="nav nav-tabs card-header-tabs" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="true">Register</a>
+					</li>
+				</ul>
+			</div>
+			<div class="card-body">
+				<div class="tab-content">
+					<div class="tab-pane show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+						<div class="container">
+							<h4 class="card-title">Login</h4>
+							<form method="post" id="loginform">
+								<div class="form-group">
+									<label for="username">Username</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text"><i class="fas fa-user-alt"></i></div>
+										</div>
+										<input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+									</div>
+									<small id="usernameerror" style="display: none;" class="form-text text-danger">Please enter your username.</small>
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text"><i class="fas fa-lock"></i></div>
+										</div>
+										<input type="password" class="form-control" id="password" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+									</div>
+									<small id="passworderror" style="display: none;" class="form-text text-danger">Please enter your password.</small>
+								</div>
+								<div class="form-group form-check">
+									<input type="checkbox" class="form-check-input" id="remember" name="remember">
+									<label class="form-check-label" for="remember">Remember me</label>
+								</div>
+							</form>
+							<button onclick="login()" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+					<div class="tab-pane show" id="register" role="tabpanel" aria-labelledby="register-tab">
+						<div class="container">
+							<h4 class="card-title">Register</h4>
+							<form method="post" id="registerform">
+								<div class="form-group">
+									<label for="username">Username</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text"><i class="fas fa-user-alt"></i></div>
+										</div>
+										<input type="text" class="form-control" id="username" name="username" placeholder="Enter username" maxlength="30">
+									</div>
+									<small id="usernameerror" style="display: none;" class="form-text text-danger">Please enter a username.</small>
+									<small id="usernameerror1" style="display: none;" class="form-text text-danger">Username length is too short.</small>
+								</div>
+								<div class="form-group">
+									<label for="email">Email</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text"><i class="fas fa-envelope"></i></div>
+										</div>
+										<input type="email" class="form-control" id="email" name="email" placeholder="Enter email" maxlength="256">
+									</div>
+									<small class="form-text text-muted">We'll never share your email with anyone else.</small>
+									<small id="emailerror" style="display: none;" class="form-text text-danger">Please enter your email address.</small>
+									<small id="emailerror1" style="display: none;" class="form-text text-danger">Plase enter a valid email address.</small>
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text"><i class="fas fa-lock"></i></div>
+										</div>
+										<input type="password" class="form-control" id="password" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" maxlength="200">
+									</div>
+									<small id="passworderror" style="display: none;" class="form-text text-danger">Please enter a password.</small>
+									<small id="passworderror1" style="display: none;" class="form-text text-danger">Password length is too short.</small>
+								</div>
+								<div class="form-group form-check">
+									<input type="checkbox" class="form-check-input" id="remember" name="remember">
+									<label class="form-check-label" for="remember">I accept the <a href="#">Terms and Conditions</a></label>
+									<small id="remembererror" style="display: none;" class="form-text text-danger">You must accept the terms and conditions.</small>
+								</div>	
+							</form>
+							<button onclick="register()" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
