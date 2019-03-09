@@ -1,2 +1,1 @@
-# javascript
-Mini projects in Javascript
+![JS](js.png)
