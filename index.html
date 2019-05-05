@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<title>Bootstrap Calculator</title>
+	<style>
+		.container {
+			margin-left: 3%;
+			margin-top: 3%;
+		}
+		.card {
+			width: 20rem;
+			border-color: black;
+			border-width: 2px;
+			-webkit-box-shadow: 11px 10px 14px -1px rgba(0,0,0,0.75);
+			-moz-box-shadow: 11px 10px 14px -1px rgba(0,0,0,0.75);
+			box-shadow: 11px 10px 14px -1px rgba(0,0,0,0.75);
+		}
+		.card .row {
+			padding-bottom: 13px;
+			padding-right: 15px;
+		}
+		.card button {
+			width: 58px;
+			height: 54px;
+			font-size: 1.2rem;
+		}
+		#answer {
+			cursor: pointer;
+		}
+		.resp {
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		var operations = "";
+
+		function strip(str) {
+			return str.replace(/^\s+|\s+$/g, '');
+		}
+
+		function add(c) {
+			operations += c;
+			show();
+		}
+
+		function test() {
+			operations = "";
+			show();
+			$("#answer").text("0");
+		}
+
+		function solve() {
+			try {
+				$("#answer").text(eval(operations.replace(/x/g, "*")));
+			} catch (err) {
+				$("#answer").text("Syntax Error")
+			}
+			operations = "";
+		}
+
+		function show() {
+			var display = "";
+			if (operations.length > 18) {
+				display = "..." + operations.slice(operations.length - 16, operations.length);
+			} else if (operations === "") {
+				display = "0";
+			} else {
+				display = operations;
+			}
+			$("#operations").text(display);
+		}
+
+		$(document).ready(function() {
+			$("#answer").click( function() {
+				var temp = $("<input>");
+				$("body").append(temp);
+				temp.val(strip($("#answer").text())).select();
+				document.execCommand("copy");
+				temp.remove();
+				temp = $("#info").text();
+				$("#info").text("Copied");
+				setTimeout(
+					function() {
+						$("#info").text(temp);
+					}, 3000
+				);
+			});
+		});
+	</script>
+	<div class="container">
+		<div class="card bg-light mb-3">
+			<div class="card-header">
+				<h3><b><i>Calculator</i></b></h3>
+				<p id="info">&nbsp;&nbsp;v 1.1</p>
+			</div>
+				<div class="card-header resp bg-dark">
+				<h4 id="operations">0</h4>
+				<div class="float-right" id="answer">0</div>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-3">
+						<button type="button" onclick="test()" class="btn btn-dark">AC</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick='add("(")' class="btn btn-dark">(</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick='add(")")' class="btn btn-dark">)</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick='add("/")' class="btn btn-dark">/</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3">
+						<button type="button" onclick="add(7)" class="btn btn-dark">7</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="add(8)" class="btn btn-dark">8</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="add(9)" class="btn btn-dark">9</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick='add("x")' class="btn btn-dark">X</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3">
+						<button type="button" onclick="add(4)" class="btn btn-dark">4</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="add(5)" class="btn btn-dark">5</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="add(6)" class="btn btn-dark">6</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick='add("-")' class="btn btn-dark">-</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3">
+						<button type="button" onclick="add(1)" class="btn btn-dark">1</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="add(2)" class="btn btn-dark">2</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="add(3)" class="btn btn-dark">3</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick='add("+")' class="btn btn-dark">+</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<button type="button" onclick="add(0)" class="btn btn-dark" style="width: 130px">0</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick='add(".")' class="btn btn-dark">.</button>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="solve()" class="btn btn-dark">=</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
